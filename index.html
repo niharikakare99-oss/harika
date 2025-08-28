@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Niharika Kare · Portfolio</title>
+  <meta name="description" content="Portfolio website of KARE SRI NIHARIKA — AI student, data viz enthusiast, and Power BI intern." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e13;
+      --bg-soft: #10151d;
+      --text: #e6edf3;
+      --muted: #9fb0c2;
+      --card: #121826cc; /* glass */
+      --accent: #7c5cff;
+      --accent-2: #22d3ee;
+      --ring: #7c5cff55;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --border: 1px solid rgba(255,255,255,.08);
+      --chip: rgba(124,92,255,.12);
+      --chip-text: #c9baff;
+    }
+    /* Light theme variables (toggled with .light on <html>) */
+    html.light {
+      --bg: #f7f8fb;
+      --bg-soft: #ffffff;
+      --text: #0b1020;
+      --muted: #4b5563;
+      --card: #ffffffcc;
+      --accent: #6d28d9;
+      --accent-2: #0891b2;
+      --ring: #6d28d955;
+      --chip: rgba(109,40,217,.08);
+      --chip-text: #4c1d95;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(124,92,255,.25), transparent 60%),
+                  radial-gradient(1200px 800px at -10% 10%, rgba(34,211,238,.18), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    /* Header */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(to bottom, var(--bg-soft), transparent);
+      border-bottom: var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 14px 24px;
+    }
+    .logo { display:flex; align-items:center; gap:12px; font-weight: 800; letter-spacing:.2px; }
+    .logo-badge {
+      width: 36px; height: 36px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display:grid; place-items:center; color:white; font-weight:900; box-shadow: var(--shadow);
+    }
+    .nav a { color: var(--text); text-decoration: none; opacity:.85; font-weight:600; }
+    .nav a:hover { opacity: 1; }
+    .links { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+
+    /* Theme toggle */
+    .toggle {
+      border: var(--border); background: var(--card); color: var(--text); border-radius: 999px;
+      padding: 8px 14px; display:flex; align-items:center; gap:8px; cursor:pointer; box-shadow: var(--shadow);
+    }
+    .toggle svg { width: 18px; height: 18px; }
+
+    /* Hero */
+    .hero {
+      display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; padding: 48px 24px 18px;
+    }
+    .hero .card { padding: 28px; border-radius: 20px; border: var(--border); background: var(--card); box-shadow: var(--shadow); }
+    h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); font-weight:500; margin: 0 0 16px; }
+    .cta { display:flex; gap: 12px; flex-wrap:wrap; margin-top: 12px; }
+    .btn {
+      appearance: none; border: none; cursor: pointer; border-radius: 12px; padding: 12px 16px; font-weight: 700;
+      box-shadow: var(--shadow); transition: transform .06s ease, box-shadow .2s ease; letter-spacing:.2px;
+    }
+    .btn:active { transform: translateY(1px) scale(.99); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; }
+    .btn.ghost { background: var(--bg-soft); color: var(--text); border: var(--border); }
+
+    .quick {
+      display:grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    }
+    .pill { padding: 10px 12px; border-radius: 12px; background: var(--chip); color: var(--chip-text); font-weight:700; text-align:center; }
+
+    /* Sections */
+    section { padding: 26px 24px; }
+    .section-title { font-size: 18px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 14px; }
+
+    .grid { display:grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+    .col-8 { grid-column: span 8; }
+    .card { padding: 20px; border-radius: 18px; border: var(--border); background: var(--card); box-shadow: var(--shadow); }
+
+    /* Timeline */
+    .timeline { position: relative; margin-left: 8px; }
+    .timeline::before { content: ""; position:absolute; top:0; bottom:0; left:10px; width:2px; background: linear-gradient(var(--accent), transparent 60%); opacity:.7; }
+    .t-item { position: relative; padding-left: 28px; margin: 10px 0 18px; }
+    .dot { position: absolute; left: 3px; top: 6px; width:14px; height:14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--ring); }
+    .t-title { font-weight: 800; }
+    .t-meta { color: var(--muted); font-weight:600; font-size: 14px; }
+
+    /* Chips / skills */
+    .chips { display:flex; gap:10px; flex-wrap:wrap; }
+    .chip { background: var(--chip); color: var(--chip-text); padding: 8px 12px; border-radius: 999px; font-weight:700; }
+
+    /* Projects */
+    .p-grid { display:grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .p-card { border: var(--border); background: var(--card); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); display:flex; flex-direction:column; gap:8px; }
+    .p-card h4 { margin: 4px 0; }
+
+    /* Footer */
+    footer { text-align:center; color: var(--muted); padding: 40px 0 60px; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <nav class="nav container" aria-label="Primary">
+      <div class="logo">
+        <div class="logo-badge" aria-hidden="true">NK</div>
+        <a href="#top">Niharika Kare</a>
+      </div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certs">Certificates</a>
+        <a href="#contact">Contact</a>
+        <button id="themeToggle" class="toggle" aria-live="polite" aria-label="Toggle color theme">
+          <!-- Sun/Moon icon will switch via JS -->
+          <svg id="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-5a1 1 0 0 1 1 1 1 1 0 1 1-2 0 1 1 0 0 1 1-1ZM4 13a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm14.95 5.536a1 1 0 0 1 0 1.414l-.707.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0ZM6.464 5.05a1 1 0 0 1 0 1.414l-.707.708A1 1 0 1 1 4.343 5.76l.707-.707a1 1 0 0 1 1.414 0Zm11.314.707a1 1 0 0 1-1.414-1.414l.707-.707A1 1 0 0 1 18.89 4.64l-.707.707ZM6.464 18.243a1 1 0 0 1-1.414 0l-.707-.707A1 1 0 1 1 5.76 16.12l.707.707a1 1 0 0 1 0 1.415Z"/></svg>
+          <span id="themeLabel">Dark</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="container">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="intro-heading">
+      <div class="card">
+        <h1 id="intro-heading">Sri Niharika Kare</h1>
+        <p class="subtitle">AI undergraduate • Data Visualization & Analytics • Power BI</p>
+        <p>
+          I seek challenging opportunities where I can fully use my skills for the success of the organization.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View Projects</a>
+          <a class="btn ghost" href="#contact">Contact Me</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="quick">
+          <div class="pill">B.Sc (AI) · 2026</div>
+          <a class="pill" href="mailto:niharikakare99@gmail.com">Email</a>
+          <a class="pill" href="https://www.linkedin.com/in/sri-niharika-kare-4406652bb" target="_blank" rel="noopener">LinkedIn</a>
+          <div class="pill">Kakinada, India</div>
+          <div class="pill">Power BI Intern</div>
+          <div class="pill">Languages: Telugu, English</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / SKILLS QUICK -->
+    <section id="about">
+      <h3 class="section-title">About</h3>
+      <div class="grid">
+        <div class="col-8 card">
+          <p>
+            I'm an AI undergraduate passionate about transforming raw data into clear insights. I enjoy data cleaning,
+            modeling relationships, and building dashboards that tell a story. I'm also comfortable with core programming
+            and analytical libraries.
+          </p>
+        </div>
+        <div id="skills" class="col-4 card">
+          <h4 class="t-title" style="margin:0 0 8px">Core Stack</h4>
+          <div class="chips">
+            <span class="chip">C</span>
+            <span class="chip">Python</span>
+            <span class="chip">HTML</span>
+            <span class="chip">Java</span>
+            <span class="chip">Pandas</span>
+            <span class="chip">NumPy</span>
+            <span class="chip">Matplotlib</span>
+            <span class="chip">Power BI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h3 class="section-title">Education</h3>
+      <div class="card timeline">
+        <div class="t-item">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="t-title">Bachelor of Science (Artificial Intelligence), Aditya Degree College — GPA 8.2</div>
+          <div class="t-meta">2023 – 2026</div>
+        </div>
+        <div class="t-item">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="t-title">Intermediate, Akhil Junior College — GPA 7.3</div>
+          <div class="t-meta">2021 – 2023</div>
+        </div>
+        <div class="t-item">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="t-title">Schooling, Sri Bharathi Vidyanikethan — GPA 9.7</div>
+          <div class="t-meta">Up to 2021</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE / INTERNSHIP -->
+    <section id="experience">
+      <h3 class="section-title">Internship</h3>
+      <div class="card">
+        <div class="t-item" style="margin:0">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="t-title">Power BI Intern — ULearn (Remote)</div>
+          <div class="t-meta">April 13, 2025 – June 4, 2025</div>
+        </div>
+        <ul>
+          <li>Completed a summer short‑term internship focused on Power BI fundamentals and practical dashboards.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h3 class="section-title">Projects</h3>
+      <div class="p-grid">
+        <article class="p-card">
+          <h4>Data Cleaning & Visualization in Power BI</h4>
+          <p>Imported a web dataset, cleaned it, modeled relationships between columns, and built visuals including bar charts, pie charts, and pictograms to communicate insights.</p>
+          <div class="chips">
+            <span class="chip">Power BI</span>
+            <span class="chip">Data Modeling</span>
+            <span class="chip">Visualization</span>
+          </div>
+        </article>
+        <article class="p-card">
+          <h4>Wet & Dry Waste Segregation System</h4>
+          <p>Designed a sensor‑based machine concept that automatically separates wet and dry waste for efficient processing.</p>
+          <div class="chips">
+            <span class="chip">Sensors</span>
+            <span class="chip">Automation</span>
+          </div>
+        </article>
+        <article class="p-card">
+          <h4>Guess the Number (1–100)</h4>
+          <p>A mini‑game that picks a random number and gives feedback (too high / too low) with up to five chances to guess correctly.</p>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Logic</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certs">
+      <h3 class="section-title">Certificates</h3>
+      <div class="grid">
+        <div class="col-6 card">
+          <ul>
+            <li>C Programming — Core concepts: variables, control structures, functions, pointers, arrays, memory.</li>
+            <li>Infosys Python Certification — Syntax, control flow, data structures, OOP concepts.</li>
+            <li>Oracle AI Foundations — ML, neural networks, NLP basics, AI ethics.</li>
+          </ul>
+        </div>
+        <div class="col-6 card">
+          <ul>
+            <li>edX Business Writing Techniques — Clarity, tone, structure, purpose‑driven professional writing.</li>
+            <li>MePro Certification — Career development & professional readiness program.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h3 class="section-title">Contact</h3>
+      <div class="card">
+        <p><strong>Location:</strong> 3‑98, Rachapalli, 533430</p>
+        <p><strong>Phone:</strong> <a href="tel:+916300408089">+91 63004 08089</a></p>
+        <p><strong>Email:</strong> <a href="mailto:niharikakare99@gmail.com">niharikakare99@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sri-niharika-kare-4406652bb" target="_blank" rel="noopener">/sri-niharika-kare-4406652bb</a></p>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Niharika Kare • Built with ❤ in HTML & CSS
+    </footer>
+  </main>
+
+  <script>
+    // --- Theme toggle with persistence ---
+    const root = document.documentElement;
+    const label = document.getElementById('themeLabel');
+    const icon = document.getElementById('icon');
+
+    function setTheme(mode) {
+      const isLight = mode === 'light';
+      root.classList.toggle('light', isLight);
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      label.textContent = isLight ? 'Light' : 'Dark';
+      icon.innerHTML = isLight
+        // Moon icon for light mode
+        ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>'
+        // Sun icon for dark mode
+        : '<path d="M12 3a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm0 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-5a1 1 0 0 1 1 1 1 1 0 1 1-2 0 1 1 0 0 1 1-1ZM4 13a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm14.95 5.536a1 1 0 0 1 0 1.414l-.707.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0ZM6.464 5.05a1 1 0 0 1 0 1.414l-.707.708A1 1 0 1 1 4.343 5.76l.707-.707a1 1 0 0 1 1.414 0Zm11.314.707a1 1 0 0 1-1.414-1.414l.707-.707A1 1 0 0 1 18.89 4.64l-.707.707ZM6.464 18.243a1 1 0 0 1-1.414 0l-.707-.707A1 1 0 1 1 5.76 16.12l.707.707a1 1 0 0 1 0 1.415Z"/>';
+    }
+
+    // Initialize theme: prefers-color-scheme OR saved choice
+    const saved = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    setTheme(saved ? saved : (prefersLight ? 'light' : 'dark'));
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const now = root.classList.contains('light') ? 'dark' : 'light';
+      setTheme(now);
+    });
+
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
